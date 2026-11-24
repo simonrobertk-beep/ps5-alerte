@@ -1,0 +1,17 @@
+name: Alerte PS5
+on:
+  schedule:
+    - cron: "*/5 * * * *"
+  workflow_dispatch:
+jobs:
+  verifier:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Verifier le stock
+        run: python ps5_alerte.py --une-fois
+        env:
+          NTFY_SUJET: ${{ secrets.NTFY_SUJET }}
